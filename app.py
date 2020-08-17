@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from engine import recommend
+from config import Config
 import pandas as pd
 import pickle
 
