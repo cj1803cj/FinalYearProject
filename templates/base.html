@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if title %}
+    <title>{{ title }} - RecommenDev</title>
+    {% else %}
     <title>Welcome to RecommenDev</title>
+    {% endif %}
 </head>
 <body>
-    <div>RecommenDev: <a href="/index">Home</a></div>
+    <div>RecommenDev: 
+        <a href="/index">Home</a>
+        <a href="/login">Login</a>
+    </div>
     <hr>
     {% block content %}{% endblock %}
 </body>
