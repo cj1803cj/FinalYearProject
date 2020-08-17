@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, flash, redirect
 from engine import recommend
 from forms import LoginForm
 import pandas as pd
@@ -28,7 +28,7 @@ def login():
         flash('Login requested for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data))
         # redirect user to index page
-        return redirect('/index')
+        return redirect(url_for('index'))
     # render login template if get request
     return render_template('login.html', title='Sign In', form=form)
 
