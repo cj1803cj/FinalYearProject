@@ -1,15 +1,12 @@
-from flask import Flask, request, jsonify, render_template, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask import request, jsonify, render_template, flash, redirect, url_for
+from app import app
+from app.forms import LoginForm
 from engine import recommend
-from forms import LoginForm
+
 import pandas as pd
 import pickle
 
-app = Flask(__name__)
-app.config.from_pyfile('config.py')
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+
 
 # read second column of dataset to obtain project names
 df = pd.read_csv('TopStaredRepositories.csv', usecols=[1])
@@ -20,7 +17,7 @@ tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
 # index endpoint
 @app.route('/')
 @app.route('/index')
-def home():
+def index():
     return render_template('index.html')
 
 # login endpoint
