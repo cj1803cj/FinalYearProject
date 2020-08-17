@@ -19,18 +19,29 @@ tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
 def home():
     return render_template('index.html')
 
-@app.route('/login')
+# login endpoint
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    # process form submission
+    if form.validate_on_submit():
+        flash('Login requested for user {}, remember_me={}'.format(
+            form.username.data, form.remember_me.data))
+        # redirect user to index page
+        return redirect('/index')
+    # render login template if get request
     return render_template('login.html', title='Sign In', form=form)
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
 def process_request():
+    # get user input
     user_input = request.get_json()
 
+    # save project name as title
     title = user_input['Repository Name']
 
+    # call recommend function with necessary arguments
     recommended_projects = recommend(title, df, tfidf_vectorizer)
 
     return jsonify(recommended_projects)
