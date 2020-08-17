@@ -1,12 +1,10 @@
 from flask import Flask, request, jsonify, render_template
 from engine import recommend
-from config import Config
 import pandas as pd
 import pickle
 
 app = Flask(__name__)
-
-app.config.from_object(Config)
+app.config.from_pyfile('config.py')
 
 # read second column of dataset to obtain project names
 df = pd.read_csv('TopStaredRepositories.csv', usecols=[1])
