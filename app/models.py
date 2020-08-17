@@ -1,6 +1,7 @@
 from datetime import datetime
 from app import db
 
+# User class
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), index=True, unique=True)
@@ -12,6 +13,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
+# Project class
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
