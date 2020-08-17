@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 from engine import recommend
+from forms import LoginForm
 import pandas as pd
 import pickle
 
@@ -17,6 +18,11 @@ tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
 @app.route('/index')
 def home():
     return render_template('index.html')
+
+@app.route('/login')
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Sign In', form=form)
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
