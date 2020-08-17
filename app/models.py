@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import db
 
 class User(db.Model):
@@ -5,7 +6,21 @@ class User(db.Model):
     username = db.Column(db.String(30), index=True, unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    projects = db.relationship('Project', backref='owner', lazy='dynamic')
 
     # use __repr__ method to change formatting of printed objects when debugging
     def __repr__(self):
-        return '<User {}>'.format(self.username)    
+        return '<User {}>'.format(self.username)
+
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(60))
+    description = db.Column(db.String(150))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now)
+    language = db.Column(db.String(15))
+    git_url = db.Column(db.String(50))
+    img_url = db.Column(db.String(50))
+
+    def __repr__(self):
+        return '<Project {}>'.format(self.title)
