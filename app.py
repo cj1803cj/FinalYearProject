@@ -5,7 +5,7 @@ import pickle
 
 app = Flask(__name__)
 
-app.config['JSON_SORT_KEYS'] = False
+app.config.from_object(Config)
 
 # read second column of dataset to obtain project names
 df = pd.read_csv('TopStaredRepositories.csv', usecols=[1])
@@ -15,8 +15,9 @@ tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
 
 # index endpoint
 @app.route('/')
+@app.route('/index')
 def home():
-    return render_template('base.html')
+    return render_template('index.html')
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
