@@ -22,7 +22,17 @@ tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html')
+    projects = [
+        {
+            'owner': {'username': 'Chris'},
+            'title': 'Recommending projects on the web'
+        },
+        {
+            'owner': {'username': 'Emily'},
+            'title': 'Recommending more projects'
+        }
+    ]
+    return render_template('index.html', title='Home', projects=projects)
 
 # login endpoint
 @app.route('/login', methods=['GET', 'POST'])
