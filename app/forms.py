@@ -48,3 +48,7 @@ class EditProfileForm(FlaskForm):
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
+
+class ProjectForm(FlaskForm):
+    project = TextAreaField('Got a project name?', validators=[DataRequired(), Length(mix=1, max=60)])
+    submit = SubmitField('Submit')
