@@ -1,6 +1,7 @@
 from flask import request, jsonify, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
+from datetime import datetime
 from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
@@ -16,6 +17,13 @@ df = pd.read_csv('TopStaredRepositories.csv', usecols=[1])
 
 # load model which has already been saved using pickle library
 tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
+
+# 
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
 
 # index endpoint
 @app.route('/')
