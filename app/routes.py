@@ -1,5 +1,5 @@
 from flask import request, jsonify, render_template, flash, redirect, url_for
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, logout_user
 from app import app
 from app.forms import LoginForm
 from app.models import User
@@ -28,7 +28,7 @@ def login():
     # redirect user to index page if they are already logged in
     if current_user.is_authenticated:
         return redirect(url_for('index'))
-        
+
     form = LoginForm()
     # process form submission
     if form.validate_on_submit():
@@ -45,6 +45,12 @@ def login():
         return redirect(url_for('index'))
     # render login template if get request
     return render_template('login.html', title='Sign In', form=form)
+
+# logout endpoint
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
