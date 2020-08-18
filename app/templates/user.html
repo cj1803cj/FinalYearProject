@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>User: {{ user.username }}</h1>
+    <hr>
+    {% for project in projects %}
+    <p>
+    {{ project.owner.username }}: <b>{{ project.title }}</b>
+    </p>
+    {% endfor %}
+{% endblock %}
