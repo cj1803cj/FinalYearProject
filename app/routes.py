@@ -94,6 +94,17 @@ def register():
     # render register template if get request
     return render_template('register.html', title='Register', form=form)
 
+# user profile endpoint
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    projects = [
+        {'owner': user, 'title': 'Project #1'},
+        {'owner': user, 'title': 'Project #2'},
+    ]
+    return render_template('user.html', user=user, projects=projects)
+
 # api endpoint
 @app.route('/api/', methods =['POST'])
 def process_request():
