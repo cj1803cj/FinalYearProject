@@ -1,5 +1,6 @@
 from flask import request, jsonify, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user
+from werkzeug import url_parse
 from app import app
 from app.forms import LoginForm
 from app.models import User
@@ -41,8 +42,15 @@ def login():
 
         # successful login
         login_user(user, remember=remember_me.data)
-        # redirect user to index page after successful login
-        return redirect(url_for('index'))
+
+        # set next_page to next argument from request to handle redirects from login_required pages
+        next_page = request.args.get('next')
+        # redirect user to index page if no next argument was found, or if next argument contains a URL with another domain
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('index')
+        # redirect user to next page after successful login
+        return redirect(next_page)
+
     # render login template if get request
     return render_template('login.html', title='Sign In', form=form)
 
