@@ -1,1 +1,24 @@
 2020-08-18 16:27:20,967 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:33]
+2020-08-18 16:38:32,244 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 16:38:38,287 ERROR: Exception on /edit_profile [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+Traceback (most recent call last):
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 120, in edit_profile
+    form = EditProfileForm()
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\wtforms\form.py", line 208, in __call__
+    return type.__call__(cls, *args, **kwargs)
+TypeError: __init__() missing 1 required positional argument: 'original_username'
+2020-08-18 16:39:36,449 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
