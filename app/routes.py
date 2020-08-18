@@ -41,6 +41,7 @@ def index():
         }
     ]
     return render_template('index.html', title='Home', projects=projects)
+# end of index endpoint
 
 # login endpoint
 @app.route('/login', methods=['GET', 'POST'])
@@ -72,12 +73,14 @@ def login():
 
     # render login template if get request
     return render_template('login.html', title='Sign In', form=form)
+# end of login endpoint
 
 # logout endpoint
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
+# end of logout endpoint
 
 # register endpoint
 @app.route('/register', methods=['GET', 'POST'])
@@ -101,6 +104,7 @@ def register():
 
     # render register template if get request
     return render_template('register.html', title='Register', form=form)
+# end of register endpoint
 
 # user profile endpoint
 @app.route('/user/<username>')
@@ -111,7 +115,9 @@ def user(username):
         {'owner': user, 'title': 'Project #1'},
         {'owner': user, 'title': 'Project #2'},
     ]
-    return render_template('user.html', user=user, projects=projects)
+    form = EmptyForm()
+    return render_template('user.html', user=user, projects=projects, form=form)
+# end of user profile endpoint
 
 # edit profile endpoint
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -128,6 +134,50 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile', form=form)
+# end of edit profile endpoint
+
+# follow user endpoint
+@app.route('/follow/<username>', methods=['POST'])
+@login_required
+def follow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('You cannot follow yourself!')
+            return redirect(url_for('user', username=username))
+        current_user.follow(user)
+        db.session.commit()
+        flash('You are now following {}!'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+# end of follow user endpoint
+
+# unfollow user endpoint
+@app.route('/unfollow/<username>', methods=['POST'])
+@login_required
+def unfollow(username):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash('User {} not found.'.format(username))
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('You cannot unfollow yourself!')
+            return redirect(url_for('user', username=username))
+        current_user.unfollow(user)
+        db.session.commit()
+        flash('You are no longer following {}.'.format(username))
+        return redirect(url_for('user', username=username))
+    else:
+        return redirect(url_for('index'))
+# end of unfollow user endpoint
+
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
