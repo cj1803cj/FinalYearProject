@@ -4,6 +4,13 @@ from flask_login import UserMixin
 from app import db, login
 from hashlib import md5
 
+# association table for followers, storing no additional data therefore no class is needed
+followers = db.Table(
+    'followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
+)
+
 # User class
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -13,6 +20,12 @@ class User(UserMixin, db.Model):
     projects = db.relationship('Project', backref='owner', lazy='dynamic')
     about_me = db.Column(db.String(140))
     last_seen = db.Column(db.DateTime, default=datetime.utcnow)
+    # add self-referential relationship for list of users the user follows
+    followed = db.relationship(
+        'User', secondary=followers,
+        primaryjoin=(followers.c.follower_id == id),
+        secondaryjoin=(followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -25,9 +38,25 @@ class User(UserMixin, db.Model):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=retro&s={}'.format(digest, size)
 
+    # follow user logic
+    def follow(self, user):
+        if not self.is_following(user):
+            self.followed.append(user)
+
+    # unfollow user logic
+    def unfollow(self, user):
+        if self.is_following(user):
+            self.followed.remove(user)
+
+    # check if user is following logic
+    def is_following(self, user):
+        return self.followed.filter(
+            followers.c.followed_id == user.id).count() > 0
+
     # use __repr__ method to change formatting of printed objects when debugging
     def __repr__(self):
         return '<User {}>'.format(self.username)
+# end of User class
 
 # Project class
 class Project(db.Model):
@@ -42,6 +71,7 @@ class Project(db.Model):
 
     def __repr__(self):
         return '<Project {}>'.format(self.title)
+# end of Project class
 
 # function to load user from id for flask-login to store user in session
 @login.user_loader
