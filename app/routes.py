@@ -33,23 +33,14 @@ def index():
     form = ProjectForm()
     if form.validate_on_submit():
         project = Project(title=form.title.data, owner=current_user)
-        db.session.add(post)
+        db.session.add(project)
         db.session.commit()
         flash('Project created!')
         # redirect to home page to avoid inserting duplicate posts
         # if a user refreshes after submitting the form
         # (post/redirect/get pattern)
         return redirect(url_for('index'))
-    projects = [
-        {
-            'owner': {'username': 'Chris'},
-            'title': 'Recommending projects on the web'
-        },
-        {
-            'owner': {'username': 'Emily'},
-            'title': 'Recommending more projects'
-        }
-    ]
+    projects = current_user.followed_projects().all()
     return render_template('index.html', title='Home', form=form, projects=projects)
 # end of index endpoint
 

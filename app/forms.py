@@ -51,5 +51,5 @@ class EmptyForm(FlaskForm):
 
 # TODO add select field which populates choices from db to select language
 class ProjectForm(FlaskForm):
-    title = StringField('Got a project name?', validators=[DataRequired(), Length(mix=1, max=60)])
+    title = StringField('Got a project name?', validators=[DataRequired(), Length(min=1, max=60)])
     submit = SubmitField('Submit')
