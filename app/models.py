@@ -40,11 +40,13 @@ class User(UserMixin, db.Model):
 
     # follow user logic
     def follow(self, user):
+        # perform check to avoid duplicating db entry
         if not self.is_following(user):
             self.followed.append(user)
 
     # unfollow user logic
     def unfollow(self, user):
+        # perform check to avoid duplicating db entry
         if self.is_following(user):
             self.followed.remove(user)
 
@@ -52,6 +54,13 @@ class User(UserMixin, db.Model):
     def is_following(self, user):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
+
+    # get list of posts made by users who the user follows
+    def followed_posts(self):
+        return Project.query.join(
+            followers, (followers.c.followed_id == Project.user_id)).filter(
+                followers.c.follower_id == self.id).order_by(
+                    Project.timestamp.desc())
 
     # use __repr__ method to change formatting of printed objects when debugging
     def __repr__(self):
