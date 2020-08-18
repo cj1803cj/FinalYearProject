@@ -55,9 +55,9 @@ class User(UserMixin, db.Model):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
 
-    # get list of posts made by users who the user follows
-    def followed_posts(self):
-        fololwed = Project.query.join(
+    # get list of projects made by users who the user follows
+    def followed_projects(self):
+        followed = Project.query.join(
             followers, (followers.c.followed_id == Project.user_id)).filter(
                 followers.c.follower_id == self.id)
         own = Project.query.filter_by(user_id=self.id)
