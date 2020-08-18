@@ -31,3 +31,4 @@ TypeError: __init__() missing 1 required positional argument: 'original_username
 2020-08-18 18:25:52,886 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
 2020-08-18 18:26:54,517 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
 2020-08-18 18:27:43,688 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 20:21:23,987 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]

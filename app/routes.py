@@ -137,6 +137,7 @@ def edit_profile():
 # end of edit profile endpoint
 
 # follow user endpoint
+# TODO combine code for follow and unfollow routes to follow DRY best practices
 @app.route('/follow/<username>', methods=['POST'])
 @login_required
 def follow(username):
