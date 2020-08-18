@@ -1,6 +1,6 @@
 from flask import request, jsonify, render_template, flash, redirect, url_for
-from flask_login import current_user, login_user, logout_user
-from werkzeug import url_parse
+from flask_login import current_user, login_user, logout_user, login_required
+from werkzeug.urls import url_parse
 from app import app
 from app.forms import LoginForm
 from app.models import User
@@ -52,7 +52,7 @@ def login():
             return redirect(url_for('login'))
 
         # successful login
-        login_user(user, remember=remember_me.data)
+        login_user(user, remember=form.remember_me.data)
 
         # set next_page to next argument from request to handle redirects from login_required pages
         next_page = request.args.get('next')
