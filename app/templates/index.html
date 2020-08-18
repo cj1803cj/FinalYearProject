@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1>Hi, {{ current_user.username }}!</h1>
+    {% if form %}
     <form action ="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -13,9 +14,10 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
+    {% endif %}
     {% for project in projects %}
     <p>
-        {{ project.owner.username }}: <b>{{ project.title }}</b>
+        {% include '_project.html' %}
     </p>
     {% endfor %}
 {% endblock %}
