@@ -4,16 +4,15 @@
     <table>
         <tr valign="top">
             <td><img src="{{ user.avatar(128) }}"></td>
-            <td><h1>User: {{ user.username }}</h1></td>
+            <td>
+                <h1>User: {{ user.username }}</h1>
+                {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+            </td>
         </tr>
     </table>
     <hr>
     {% for project in projects %}
-    <table>
-        <tr valign="top">
-            <td><img src="{{ project.owner.avatar(36) }}"></td>
-            <td>{{ project.owner.username }} <br>{{ project.title }}</td>
-        </tr>
-    </table>
+        {% include '_project.html' %}
     {% endfor %}
 {% endblock %}
