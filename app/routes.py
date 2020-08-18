@@ -1,8 +1,8 @@
 from flask import request, jsonify, render_template, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
-from app import app
-from app.forms import LoginForm
+from app import app, db
+from app.forms import LoginForm, RegistrationForm
 from app.models import User
 from engine import recommend
 
@@ -44,7 +44,7 @@ def login():
     form = LoginForm()
     # process form submission
     if form.validate_on_submit():
-        # search db using username form data
+        # search db for user by username form data
         user = User.query.filter_by(username=form.username.data).first()
         # conditional for unsuccessful username search OR check_password returns false
         if user is None or not user.check_password(form.password.data):
@@ -70,6 +70,29 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+# register endpoint
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    # redirect user to index page if they are already logged in
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = RegistrationForm()
+    # process form submission
+    if form.validate_on_submit():
+        # create new user object with form data as arguments
+        user = User(username=form.username.data, email=form.email.data)
+        user.set_password(form.password.data)
+
+        # add user to db
+        db.session.add(user)
+        db.session.commit()
+        flash('You have successfully registered!')
+        return redirect(url_for('login'))
+
+    # render register template if get request
+    return render_template('register.html', title='Register', form=form)
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
