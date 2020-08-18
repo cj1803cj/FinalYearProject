@@ -3,7 +3,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm, EmptyForm
 from app.models import User, Project
 from engine import recommend
 
@@ -43,6 +43,14 @@ def index():
     projects = current_user.followed_projects().all()
     return render_template('index.html', title='Home', form=form, projects=projects)
 # end of index endpoint
+
+# explore endpoint
+@app.route('/explore')
+@login_required
+def explore():
+    projects = Project.query.order_by(Project.timestamp.desc()).all()
+    return render_template('index.html', title='Explore', projects=projects)
+# end of explore endpoint
 
 # login endpoint
 @app.route('/login', methods=['GET', 'POST'])
