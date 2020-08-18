@@ -49,6 +49,7 @@ class EditProfileForm(FlaskForm):
 class EmptyForm(FlaskForm):
     submit = SubmitField('Submit')
 
+# TODO add select field which populates choices from db to select language
 class ProjectForm(FlaskForm):
-    project = TextAreaField('Got a project name?', validators=[DataRequired(), Length(mix=1, max=60)])
+    title = StringField('Got a project name?', validators=[DataRequired(), Length(mix=1, max=60)])
     submit = SubmitField('Submit')

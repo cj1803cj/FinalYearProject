@@ -3,8 +3,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm
+from app.models import User, Project
 from engine import recommend
 
 import pandas as pd
@@ -26,10 +26,20 @@ def before_request():
         db.session.commit()
 
 # index endpoint
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
+    form = ProjectForm()
+    if form.validate_on_submit():
+        project = Project(title=form.title.data, owner=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Project created!')
+        # redirect to home page to avoid inserting duplicate posts
+        # if a user refreshes after submitting the form
+        # (post/redirect/get pattern)
+        return redirect(url_for('index'))
     projects = [
         {
             'owner': {'username': 'Chris'},
@@ -40,7 +50,7 @@ def index():
             'title': 'Recommending more projects'
         }
     ]
-    return render_template('index.html', title='Home', projects=projects)
+    return render_template('index.html', title='Home', form=form, projects=projects)
 # end of index endpoint
 
 # login endpoint
