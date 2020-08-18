@@ -20,6 +20,7 @@ tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
 # index endpoint
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
     return render_template('index.html')
 
