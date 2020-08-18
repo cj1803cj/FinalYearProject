@@ -1,9 +1,10 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db
+from flask_login import UserMixin
+from app import db, login
 
 # User class
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), index=True, unique=True)
     email = db.Column(db.String(50), index=True, unique=True)
@@ -33,3 +34,8 @@ class Project(db.Model):
 
     def __repr__(self):
         return '<Project {}>'.format(self.title)
+
+# function to load user from id for flask-login to store user in session
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
