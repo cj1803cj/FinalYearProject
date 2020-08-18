@@ -57,10 +57,11 @@ class User(UserMixin, db.Model):
 
     # get list of posts made by users who the user follows
     def followed_posts(self):
-        return Project.query.join(
+        fololwed = Project.query.join(
             followers, (followers.c.followed_id == Project.user_id)).filter(
-                followers.c.follower_id == self.id).order_by(
-                    Project.timestamp.desc())
+                followers.c.follower_id == self.id)
+        own = Project.query.filter_by(user_id=self.id)
+        return followed.union(own).order_by(Project.timestamp.desc())
 
     # use __repr__ method to change formatting of printed objects when debugging
     def __repr__(self):
