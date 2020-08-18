@@ -22,3 +22,8 @@ Traceback (most recent call last):
     return type.__call__(cls, *args, **kwargs)
 TypeError: __init__() missing 1 required positional argument: 'original_username'
 2020-08-18 16:39:36,449 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 17:35:04,136 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 17:36:47,918 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 17:39:52,365 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 17:42:32,510 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-18 17:44:33,583 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
