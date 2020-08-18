@@ -1,6 +1,8 @@
 from flask import request, jsonify, render_template, flash, redirect, url_for
+from flask_login import current_user, login_user
 from app import app
 from app.forms import LoginForm
+from app.models import User
 from engine import recommend
 
 import pandas as pd
@@ -23,12 +25,23 @@ def index():
 # login endpoint
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # redirect user to index page if they are already logged in
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+        
     form = LoginForm()
     # process form submission
     if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        # redirect user to index page
+        # search db using username form data
+        user = User.query.filter_by(username=form.username.data).first()
+        # conditional for unsuccessful username search OR check_password returns false
+        if user is None or not user.check_password(form.password.data):
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+
+        # successful login
+        login_user(user, remember=remember_me.data)
+        # redirect user to index page after successful login
         return redirect(url_for('index'))
     # render login template if get request
     return render_template('login.html', title='Sign In', form=form)
