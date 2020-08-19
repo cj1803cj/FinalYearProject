@@ -40,16 +40,35 @@ def index():
         # if a user refreshes after submitting the form
         # (post/redirect/get pattern)
         return redirect(url_for('index'))
-    projects = current_user.followed_projects().all()
-    return render_template('index.html', title='Home', form=form, projects=projects)
+    
+    # get page number from request
+    page = request.args.get('page', 1, type=int)
+    projects = current_user.followed_projects().paginate(page, app.config['POSTS_PER_PAGE'], False)
+
+    # ternary operators to assign next page url and previous
+    # page url if there are more projects to display
+    next_url = url_for('index', page=projects.next_num) \
+        if projects.has_next else None
+    prev_url = url_for('index', page=projects.prev_num) \
+        if projects.has_prev else None
+    return render_template('index.html', title='Home', form=form, projects=projects.items, next_url=next_url, prev_url=prev_url)
 # end of index endpoint
 
 # explore endpoint
 @app.route('/explore')
 @login_required
 def explore():
-    projects = Project.query.order_by(Project.timestamp.desc()).all()
-    return render_template('index.html', title='Explore', projects=projects)
+    # get page number from request
+    page = request.args.get('page', 1, type=int)
+    projects = Project.query.order_by(Project.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+
+    # ternary operators to assign next page url and previous
+    # page url if there are more projects to display
+    next_url = url_for('explore', page=projects.next_num) \
+        if projects.has_next else None
+    prev_url = url_for('explore', page=projects.prev_num) \
+        if projects.has_prev else None
+    return render_template('index.html', title='Explore', projects=projects.items, next_url=next_url, prev_url=prev_url)
 # end of explore endpoint
 
 # login endpoint
