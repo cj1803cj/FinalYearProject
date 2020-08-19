@@ -6,6 +6,7 @@ from flask_mail import Mail
 import logging
 from logging.handlers import RotatingFileHandler, SMTPHandler
 import os
+from flask_bootstrap import Bootstrap
 
 from config import Config
 
@@ -19,6 +20,7 @@ login = LoginManager(app)
 login.login_view = 'login'
 
 mail = Mail(app)
+bootstrap = Bootstrap(app)
 
 # import routes at bottom to avoid circular imports as a result
 # of routes also importing the app module
