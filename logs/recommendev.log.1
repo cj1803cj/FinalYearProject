@@ -1,6 +1,4 @@
-2020-08-18 16:27:20,967 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:33]
-2020-08-18 16:38:32,244 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 16:38:38,287 ERROR: Exception on /edit_profile [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+2020-08-18 22:28:48,435 ERROR: Exception on /user/Emily [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
 Traceback (most recent call last):
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -16,24 +14,10 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 120, in edit_profile
-    form = EditProfileForm()
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\wtforms\form.py", line 208, in __call__
-    return type.__call__(cls, *args, **kwargs)
-TypeError: __init__() missing 1 required positional argument: 'original_username'
-2020-08-18 16:39:36,449 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 17:35:04,136 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 17:36:47,918 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 17:39:52,365 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 17:42:32,510 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 17:44:33,583 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 18:25:36,354 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 18:25:52,886 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 18:26:54,517 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 18:27:43,688 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 20:21:23,987 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 21:30:30,336 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 21:30:45,500 ERROR: Exception on / [POST] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 127, in user
+    form = EmptyForm()
+NameError: name 'EmptyForm' is not defined
+2020-08-18 22:28:56,273 ERROR: Exception on /user/Mike [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
 Traceback (most recent call last):
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -49,10 +33,10 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 36, in index
-    db.session.add(post)
-NameError: name 'post' is not defined
-2020-08-18 21:31:04,474 ERROR: Exception on /index [POST] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 127, in user
+    form = EmptyForm()
+NameError: name 'EmptyForm' is not defined
+2020-08-18 22:29:02,060 ERROR: Exception on /user/Christopher [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
 Traceback (most recent call last):
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -68,12 +52,44 @@ Traceback (most recent call last):
     return self.view_functions[rule.endpoint](**req.view_args)
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
     return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 36, in index
-    db.session.add(project)
-NameError: name 'post' is not defined
-2020-08-18 21:31:12,039 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 22:23:35,822 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 22:23:40,098 ERROR: Exception on /explore [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 127, in user
+    form = EmptyForm()
+NameError: name 'EmptyForm' is not defined
+2020-08-18 22:30:26,151 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-19 09:56:03,325 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-19 10:14:59,212 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-19 10:16:50,933 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-19 10:25:41,231 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+2020-08-19 11:10:20,692 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 11:14:52,747 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 11:18:14,463 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 11:23:05,667 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 11:24:23,253 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 11:27:28,466 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 17:35:40,115 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 17:36:22,150 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 17:36:51,252 ERROR: Exception on /reset_password_request [POST] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+Traceback (most recent call last):
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_mail.py", line 492, in send
+    message.send(connection)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_mail.py", line 427, in send
+    connection.send(self)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_mail.py", line 192, in send
+    message.rcpt_options)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 852, in sendmail
+    self.ehlo_or_helo_if_needed()
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 600, in ehlo_or_helo_if_needed
+    if not (200 <= self.ehlo()[0] <= 299):
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 440, in ehlo
+    self.putcmd(self.ehlo_msg, name or self.local_hostname)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 367, in putcmd
+    self.send(str)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 359, in send
+    raise SMTPServerDisconnected('please run connect() first')
+smtplib.SMTPServerDisconnected: please run connect() first
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -87,29 +103,23 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 52, in explore
-    return render_template('index.html', title,'Explore', projects=projects)
-NameError: name 'title' is not defined
-2020-08-18 22:24:23,755 ERROR: Exception on /explore [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
-Traceback (most recent call last):
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 52, in explore
-    return render_template('index.html', title='Explore', projects=projects)
-NameError: name 'title' is not defined
-2020-08-18 22:24:29,533 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-18 22:25:24,016 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 231, in reset_password_request
+    send_password_reset_email(user)
+  File "C:\Users\Christopher\Documents\python\app\email.py", line 18, in send_password_reset_email
+    html_body=render_template('email/reset_password.html', user=user, token=token))
+  File "C:\Users\Christopher\Documents\python\app\email.py", line 10, in send_email
+    mail.send(msg)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_mail.py", line 492, in send
+    message.send(connection)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_mail.py", line 152, in __exit__
+    self.host.quit()
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 984, in quit
+    res = self.docmd("quit")
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 420, in docmd
+    self.putcmd(cmd, args)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 367, in putcmd
+    self.send(str)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\smtplib.py", line 359, in send
+    raise SMTPServerDisconnected('please run connect() first')
+smtplib.SMTPServerDisconnected: please run connect() first
+2020-08-19 17:41:24,228 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]

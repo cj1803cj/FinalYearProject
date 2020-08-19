@@ -3,8 +3,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from datetime import datetime
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm, EmptyForm
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Project
+from app.email import send_password_reset_email
 from engine import recommend
 
 import pandas as pd
@@ -54,6 +55,7 @@ def index():
     return render_template('index.html', title='Home', form=form, projects=projects.items, next_url=next_url, prev_url=prev_url)
 # end of index endpoint
 
+
 # explore endpoint
 @app.route('/explore')
 @login_required
@@ -70,6 +72,7 @@ def explore():
         if projects.has_prev else None
     return render_template('index.html', title='Explore', projects=projects.items, next_url=next_url, prev_url=prev_url)
 # end of explore endpoint
+
 
 # login endpoint
 @app.route('/login', methods=['GET', 'POST'])
@@ -103,12 +106,14 @@ def login():
     return render_template('login.html', title='Sign In', form=form)
 # end of login endpoint
 
+
 # logout endpoint
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 # end of logout endpoint
+
 
 # register endpoint
 @app.route('/register', methods=['GET', 'POST'])
@@ -134,6 +139,7 @@ def register():
     return render_template('register.html', title='Register', form=form)
 # end of register endpoint
 
+
 # user profile endpoint
 @app.route('/user/<username>')
 @login_required
@@ -148,6 +154,7 @@ def user(username):
     form = EmptyForm()
     return render_template('user.html', user=user, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
 # end of user profile endpoint
+
 
 # edit profile endpoint
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -165,6 +172,7 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='Edit Profile', form=form)
 # end of edit profile endpoint
+
 
 # follow user endpoint
 # TODO combine code for follow and unfollow routes to follow DRY best practices
@@ -188,6 +196,7 @@ def follow(username):
         return redirect(url_for('index'))
 # end of follow user endpoint
 
+
 # unfollow user endpoint
 @app.route('/unfollow/<username>', methods=['POST'])
 @login_required
@@ -208,6 +217,44 @@ def unfollow(username):
     else:
         return redirect(url_for('index'))
 # end of unfollow user endpoint
+
+
+# reset password request endpoint
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+    return render_template('reset_password_request.html',
+                           title='Reset Password', form=form)
+# end of reset password request endpoint
+
+
+# reset password endpoint
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    # if user is already signed in
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    # redirect to index if token is invalid
+    if not user:
+        return redirect(url_for('index'))
+    # present form to reset password if token is valid
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template('reset_password.html', form=form)
+# end of reset password endpoint
 
 
 # api endpoint

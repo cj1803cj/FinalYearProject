@@ -1,4 +1,4 @@
-2020-08-18 22:28:48,435 ERROR: Exception on /user/Emily [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+2020-08-19 17:41:55,836 ERROR: Exception on /reset_password/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNldF9wYXNzd29yZCI6MiwiZXhwIjoxNTk3ODU1ODk3LjY0NjY2NjN9.qnBSdsJGOAwxIuUSdtAwTT0fnlbAfs6y-MQetymqilU [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
 Traceback (most recent call last):
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,12 +12,26 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 127, in user
-    form = EmptyForm()
-NameError: name 'EmptyForm' is not defined
-2020-08-18 22:28:56,273 ERROR: Exception on /user/Mike [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 256, in reset_password
+    return render_template('reset_password.html', form=form)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\jinja2\environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\jinja2\environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\jinja2\environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\jinja2\loaders.py", line 115, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\templating.py", line 60, in get_source
+    return self._get_source_fast(environment, template)
+  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\templating.py", line 89, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: reset_password.html
+2020-08-19 17:43:29,944 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 17:49:24,044 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+2020-08-19 17:49:31,776 ERROR: Exception on /reset_password_request [POST] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
 Traceback (most recent call last):
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
     response = self.full_dispatch_request()
@@ -31,38 +45,11 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 127, in user
-    form = EmptyForm()
-NameError: name 'EmptyForm' is not defined
-2020-08-18 22:29:02,060 ERROR: Exception on /user/Christopher [GET] [in C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py:1892]
-Traceback (most recent call last):
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 2447, in wsgi_app
-    response = self.full_dispatch_request()
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
-    reraise(exc_type, exc_value, tb)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\_compat.py", line 39, in reraise
-    raise value
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask\app.py", line 1936, in dispatch_request
-    return self.view_functions[rule.endpoint](**req.view_args)
-  File "C:\Users\Christopher\miniconda3\envs\py37\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
-    return func(*args, **kwargs)
-  File "C:\Users\Christopher\Documents\python\app\routes.py", line 127, in user
-    form = EmptyForm()
-NameError: name 'EmptyForm' is not defined
-2020-08-18 22:30:26,151 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-19 09:56:03,325 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-19 10:14:59,212 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-19 10:16:50,933 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-19 10:25:41,231 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:34]
-2020-08-19 11:10:20,692 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
-2020-08-19 11:14:52,747 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
-2020-08-19 11:18:14,463 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
-2020-08-19 11:23:05,667 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
-2020-08-19 11:24:23,253 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
-2020-08-19 11:27:28,466 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
+  File "C:\Users\Christopher\Documents\python\app\routes.py", line 231, in reset_password_request
+    send_password_reset_email(user)
+  File "C:\Users\Christopher\Documents\python\app\email.py", line 24, in send_password_reset_email
+    html_body=render_template('email/reset_password.html', user=user, token=token))
+  File "C:\Users\Christopher\Documents\python\app\email.py", line 15, in send_email
+    Thread(target=send_async_email, args=(app, msg).start())
+AttributeError: 'tuple' object has no attribute 'start'
+2020-08-19 17:49:48,757 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:37]
