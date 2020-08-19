@@ -9,6 +9,7 @@
             <a href="{{ url_for('user', username=project.owner.username) }}">
                 {{ project.owner.username }}
             </a>
+            {{ moment(project.timestamp).format('L') }}
             <br>
             {{ project.title }}
         </td>
