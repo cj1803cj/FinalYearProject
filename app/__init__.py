@@ -52,3 +52,12 @@ if not app.debug:
             credentials=auth, secure=secure)
         mail_handler.setLevel(logging.ERROR)
         app.logger.addHandler(mail_handler)
+
+# fix to allow flask-migrate to make changes to db where
+# a column is dropped, as sqlite is typically unable
+# to do this
+with app.app_context():
+    if db.engine.url.drivername == 'sqlite':
+        migrate.init_app(app, db, render_as_batch=True)
+    else:
+        migrate.init_app(app, db)
