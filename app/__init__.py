@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_mail import Mail
 import logging
 from logging.handlers import RotatingFileHandler, SMTPHandler
 import os
@@ -16,6 +17,8 @@ migrate = Migrate(app, db)
 login = LoginManager(app)
 # tell flask-login where to find login function
 login.login_view = 'login'
+
+mail = Mail(app)
 
 # import routes at bottom to avoid circular imports as a result
 # of routes also importing the app module
