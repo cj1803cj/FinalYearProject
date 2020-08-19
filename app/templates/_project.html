@@ -1,11 +1,16 @@
-<table>
-    <tr valign="top">
-        <td><img src="{{ project.owner.avatar(36) }}"></td>
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="{{ url_for('user', username=project.owner.username) }}">
+                <img src="{{ project.owner.avatar(70) }}" />
+            </a>
+        </td>
         <td>
             <a href="{{ url_for('user', username=project.owner.username) }}">
                 {{ project.owner.username }}
             </a>
-            <br>{{ project.title }}
+            <br>
+            {{ project.title }}
         </td>
     </tr>
 </table>
