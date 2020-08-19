@@ -152,7 +152,7 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=projects.prev_num) \
         if projects.has_prev else None
     form = EmptyForm()
-    return render_template('user.html', user=user, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
+    return render_template('user.html', title=f'{user.username}\'s profile', user=user, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
 # end of user profile endpoint
 
 
