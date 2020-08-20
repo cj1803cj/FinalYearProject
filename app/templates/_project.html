@@ -11,7 +11,7 @@
                     {{ project.owner.username }}
                 </a>
             </span>
-            posted <a href="#"><b>{{ project.title }}</b></a> on {{ moment(project.timestamp).format('L') }}
+            posted <a href="{{ url_for('project', id=project.id) }}"><b>{{ project.title }}</b></a> on {{ moment(project.timestamp).format('L') }}
             <a href="{% if project.language %} {{ url_for('language', language=project.language) }} {% endif %}" class="badge badge-secondary float-right">{% if project.language %} {{ project.language }} {% endif %}</a>
             <br> {% if project.description %} {{ project.description }} {% endif %}
         </td>
