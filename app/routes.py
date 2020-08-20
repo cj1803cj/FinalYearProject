@@ -285,11 +285,59 @@ def language(language):
 # end of language endpoint
 
 
+# project endpoint
 @app.route('/project/<id>')
 @login_required
 def project(id):
     project = Project.query.get(id)
-    return render_template('project.html', title=project.title, project=project)
+    form = EmptyForm()
+    return render_template('project.html', title=project.title, project=project, form=form)
+# end of project endpoint
+
+
+# rate project endpoint
+@app.route('/rate/<id>', methods=['POST'])
+@login_required
+def rate(id):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        project = Project.query.get(id)
+        if project is None:
+            flash('Project ID #{} not found.'.format(id))
+            return redirect(url_for('index'))
+        if project.owner == current_user:
+            flash('You cannot rate your own project!')
+            return redirect(url_for('project', id=id))
+        current_user.rate(project)
+        db.session.commit()
+        flash('You just rated {}s project!'.format(project.owner))
+        return redirect(url_for('project', id=id))
+    else:
+        return redirect(url_for('index'))
+# end of rate project endpoint
+
+
+# unrate project endpoint
+@app.route('/unrate/<id>', methods=['POST'])
+@login_required
+def unrate(id):
+    form = EmptyForm()
+    if form.validate_on_submit():
+        project = Project.query.get(id)
+        if project is None:
+            flash('Project ID #{} not found.'.format(id))
+            return redirect(url_for('index'))
+        if project.owner == current_user:
+            flash('You cannot unrate your own project!')
+            return redirect(url_for('project', id=id))
+        current_user.unrate(project)
+        db.session.commit()
+        flash('You just unrated {}s project!'.format(project.owner))
+        return redirect(url_for('project', id=id))
+    else:
+        return redirect(url_for('index'))
+# end of unrate project endpoint
+
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
