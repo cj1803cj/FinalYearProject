@@ -10,7 +10,27 @@
                 {% if user.last_seen %}
                 <p>Last seen {{ moment(user.last_seen).fromNow() }}</p>
                 {% endif %}
-                <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+                <a href="#", id="followers_btn", data-toggle="modal", data-target="#exampleModal">{{ user.followers.count() }} followers</a>, <a href="#", id="following_btn", data-toggle="modal", data-target="#exampleModal">{{ user.followed.count() }} following.</a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% for follow in following %}
+                                    {% include '_user.html' %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 {% if user == current_user %}
                 <p><a href="{{ url_for('edit_profile') }}">Edit my profile</a></p>
                 {% elif not current_user.is_following(user) %}
