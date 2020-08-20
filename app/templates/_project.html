@@ -2,7 +2,11 @@
     <tr>
         <td width="70px">
             <a href="{{ url_for('user', username=project.owner.username) }}">
+                {% if project.owner %}
                 <img src="{{ project.owner.avatar(70) }}" />
+                {% else %}
+                <img src="https://via.placeholder.com/70" />
+                {% endif %}
             </a>
         </td>
         <td>
