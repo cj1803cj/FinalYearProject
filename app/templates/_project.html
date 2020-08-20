@@ -6,9 +6,11 @@
             </a>
         </td>
         <td>
-            <a href="{{ url_for('user', username=project.owner.username) }}">
-                {{ project.owner.username }}
-            </a>
+            <span class="user_popup">
+                <a href="{{ url_for('user', username=project.owner.username) }}">
+                    {{ project.owner.username }}
+                </a>
+            </span>
             {{ moment(project.timestamp).format('L') }}
             <br>
             {{ project.title }}
