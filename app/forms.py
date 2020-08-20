@@ -57,6 +57,7 @@ class ProjectForm(FlaskForm):
     description = TextAreaField('Description of project', validators=[Length(min=0, max=150)])
     language = StringField('Main Programming Language', validators=[DataRequired(), Length(min=1, max=15)])
     git_url = StringField('Optional GitHub URL')
+    tags = StringField('Optional tags (separated by a single space)', validators=[Length(min=0, max=60)])
     submit = SubmitField('Submit')
 
 
