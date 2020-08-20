@@ -33,7 +33,7 @@ def before_request():
 def index():
     form = ProjectForm()
     if form.validate_on_submit():
-        project = Project(title=form.title.data, owner=current_user, description=form.description.data, language=form.language.data, git_url=form.git_url.data)
+        project = Project(title=form.title.data, owner=current_user, description=form.description.data, language=form.language.data.upper(), git_url=form.git_url.data, tags=form.tags.data.lower())
         db.session.add(project)
         db.session.commit()
         flash('Project created!')
@@ -268,6 +268,21 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 # end of reset password endpoint
+
+
+# language endpoint
+@app.route('/language/<language>')
+@login_required
+def language(language):
+    page = request.args.get('page', 1, type=int)
+    projects = Project.query.filter_by(language=language).order_by(Project.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
+
+    next_url = url_for('explore', page=projects.next_num) \
+        if projects.has_next else None
+    prev_url = url_for('explore', page=projects.prev_num) \
+        if projects.has_prev else None
+    return render_template('index.html', title='language', projects=projects.items, next_url=next_url, prev_url=prev_url)
+# end of language endpoint
 
 
 # api endpoint
