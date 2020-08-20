@@ -10,7 +10,7 @@
                 {% if user.last_seen %}
                 <p>Last seen {{ moment(user.last_seen).fromNow() }}</p>
                 {% endif %}
-                <a href="#", id="followers_btn", data-toggle="modal", data-target="#followers_modal">{{ user.followers.count() }} followers</a>, <a href="#", id="following_btn", data-toggle="modal", data-target="#following_modal">{{ user.followed.count() }} following.</a>
+                <a href="#", id="followers_btn", data-toggle="modal", {% if followers %} data-target="#followers_modal" {% endif %}>{{ user.followers.count() }} followers</a>, <a href="#", id="following_btn", data-toggle="modal", {% if following %} data-target="#following_modal" {% endif %}>{{ user.followed.count() }} following.</a>
 
                 <!-- Modal for displaying followers -->
                 <div class="modal fade" id="followers_modal" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">

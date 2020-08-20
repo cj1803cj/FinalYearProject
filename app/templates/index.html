@@ -12,6 +12,27 @@
             <div class="alert alert-danger" role="alert">{{ error }}</div>
             {% endfor %}
         </div>
+        <div class="form-group">
+            {{ form.description.label }}<br>
+            {{ form.description(size=150, class="form-control") }}<br>
+            {% for error in form.description.errors %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.language.label }}<br>
+            {{ form.language(size=15, class="form-control") }}<br>
+            {% for error in form.language.errors %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form.git_url.label }}<br>
+            {{ form.git_url(size=60, class="form-control") }}<br>
+            {% for error in form.git_url.errors %}
+            <div class="alert alert-danger" role="alert">{{ error }}</div>
+            {% endfor %}
+        </div>
         <p>{{ form.submit(class="btn btn-primary") }}</p>
     </form>
     <br>

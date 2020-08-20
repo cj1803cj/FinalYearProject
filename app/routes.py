@@ -33,7 +33,7 @@ def before_request():
 def index():
     form = ProjectForm()
     if form.validate_on_submit():
-        project = Project(title=form.title.data, owner=current_user)
+        project = Project(title=form.title.data, owner=current_user, description=form.description.data, language=form.language.data, git_url=form.git_url.data)
         db.session.add(project)
         db.session.commit()
         flash('Project created!')
@@ -146,6 +146,7 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     following = user.followed.all()
+    # get followers using backref in association
     followers = user.followers.all()
     page = request.args.get('page', 1, type=int)
     projects = user.projects.order_by(Project.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
