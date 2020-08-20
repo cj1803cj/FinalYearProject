@@ -70,3 +70,7 @@ AttributeError: 'tuple' object has no attribute 'start'
 2020-08-20 19:35:39,911 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]
 2020-08-20 22:20:50,579 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]
 2020-08-20 22:21:02,774 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]
+2020-08-20 23:16:03,957 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]
+2020-08-20 23:34:30,697 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]
+2020-08-20 23:34:40,813 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]
+2020-08-20 23:35:16,759 INFO: RecommenDev startup [in C:\Users\Christopher\Documents\python\app\__init__.py:40]

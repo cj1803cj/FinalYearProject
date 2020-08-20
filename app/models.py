@@ -97,7 +97,7 @@ class User(UserMixin, db.Model):
 
     def is_rated(self, project):
         return self.rated.filter(
-            raters.c.project_id == project.id).count() > 0
+            ratings.c.project_id == project.id).count() > 0
 
     # use __repr__ method to change formatting of printed objects when debugging
     def __repr__(self):
