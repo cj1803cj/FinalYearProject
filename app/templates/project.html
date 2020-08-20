@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="media pb-3">
+    <img src="{{ project.owner.avatar(64) }}" class="mr-3">
+    
+    <div class="media-body">
+        <h2 class="mb-1">{{ project.title}}
+            <a href="{% if project.language %} {{ url_for('language', language=project.language) }} {% endif %}" class="badge badge-secondary float-right">{% if project.language %} {{ project.language }} {% endif %}</a>
+        </h2>
+        
+        <a href="{{ url_for('user', username=project.owner.username) }}">{{ project.owner.username}}</a> posted on {{ moment(project.timestamp).format('L') }}
+    </div>
+            
+</div>
+<table class="table table-hover">
+    <caption>{% if project.tags %} Tags: {{ project.tags }} {% endif %} <button class="btn btn-primary float-right"><i class="far fa-star"></i></button></caption>
+    <tr>
+        <td> {% if project.description %} {{ project.description }} {% endif %} </td>
+    </tr>
+</table>
+
+{% endblock %}
