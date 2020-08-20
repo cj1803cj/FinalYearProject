@@ -91,6 +91,7 @@ class Project(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     language = db.Column(db.String(15))
     git_url = db.Column(db.String(50))
+    tags = db.Column(db.String(60))
 
     def __repr__(self):
         return '<Project {}>'.format(self.title)
