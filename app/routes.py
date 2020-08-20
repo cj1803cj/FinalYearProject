@@ -146,6 +146,7 @@ def register():
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     following = user.followed.all()
+    followers = user.followers.all()
     page = request.args.get('page', 1, type=int)
     projects = user.projects.order_by(Project.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
     next_url = url_for('user', username=user.username, page=projects.next_num) \
@@ -153,7 +154,7 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=projects.prev_num) \
         if projects.has_prev else None
     form = EmptyForm()
-    return render_template('user.html', title=f'{user.username}\'s profile', user=user, following=following, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
+    return render_template('user.html', title=f'{user.username}\'s profile', user=user, following=following, followers=followers, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
 # end of user profile endpoint
 
 
