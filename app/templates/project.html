@@ -10,11 +10,26 @@
         </h2>
         
         <a href="{{ url_for('user', username=project.owner.username) }}">{{ project.owner.username}}</a> posted on {{ moment(project.timestamp).format('L') }}
+        <span class="float-right">{{ project.raters.count() }} ratings.</span>
     </div>
             
 </div>
 <table class="table table-hover">
-    <caption>{% if project.tags %} Tags: {{ project.tags }} {% endif %} <button class="btn btn-primary float-right"><i class="far fa-star"></i></button></caption>
+    <caption>{% if project.tags %} Tags: {{ project.tags }} {% endif %} 
+        {% if not current_user.is_rated(project) %}
+        <form action="{{ url_for('rate', id=project.id) }}" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.submit(value='rate', class="btn btn-outline-primary float-right") }}
+        </form>
+            <button class="btn btn-outline-primary float-right"><i class="far fa-star"></i></button>
+        {% elif current_user.is_rated(project) %}
+        <form action="{{ url_for('unrate', id=project.id) }}" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.submit(value='unrate', class="btn btn-primary float-right") }}
+        </form>
+            <button class="btn btn-primary float-right"><i class="fas fa-star"></i></button>
+        {% else %} {% endif %}
+    </caption>
     <tr>
         <td> {% if project.description %} {{ project.description }} {% endif %} </td>
     </tr>
