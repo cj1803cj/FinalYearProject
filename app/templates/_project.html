@@ -12,7 +12,7 @@
                 </a>
             </span>
             posted <a href="#"><b>{{ project.title }}</b></a> on {{ moment(project.timestamp).format('L') }}
-            <a href="#" class="badge badge-secondary float-right">{% if project.language %} {{ project.language }} {% endif %}</a>
+            <a href="{{ url_for('language', language=project.language) }}" class="badge badge-secondary float-right">{% if project.language %} {{ project.language }} {% endif %}</a>
             <br> {% if project.description %} {{ project.description }} {% endif %}
         </td>
     </tr>
