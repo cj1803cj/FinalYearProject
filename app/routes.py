@@ -156,6 +156,16 @@ def user(username):
 # end of user profile endpoint
 
 
+# user popup endpoint
+@app.route('/user/<username>/popup')
+@login_required
+def user_popup(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    form = EmptyForm()
+    return render_template('user_popup.html', user=user, form=form)
+# end of user popup endpoint
+
+
 # edit profile endpoint
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
