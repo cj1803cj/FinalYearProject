@@ -13,6 +13,13 @@ followers = db.Table(
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+#association table for ratings, same as above
+ratings = db.Table(
+    'ratings',
+    db.Column('rater_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('project_id', db.Integer, db.ForeignKey('project.id'))
+)
+
 # User class
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +35,9 @@ class User(UserMixin, db.Model):
         primaryjoin=(followers.c.follower_id == id),
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
+    rated = db.relationship(
+        'Project', secondary=ratings,
+        backref=db.backref('raters', lazy='dynamic'), lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -76,6 +86,18 @@ class User(UserMixin, db.Model):
                 followers.c.follower_id == self.id)
         own = Project.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Project.timestamp.desc())
+    
+    def rate(self, project):
+        if not self.is_rated(project):
+            self.rated.append(project)
+
+    def unrate(self, project):
+        if self.is_rated(project):
+            self.rated.remove(project)
+
+    def is_rated(self, project):
+        return self.rated.filter(
+            raters.c.project_id == project.id).count() > 0
 
     # use __repr__ method to change formatting of printed objects when debugging
     def __repr__(self):
