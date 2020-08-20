@@ -11,9 +11,11 @@
                     {{ project.owner.username }}
                 </a>
             </span>
-            {{ moment(project.timestamp).format('L') }}
+            posted <b>{{ project.title }}</b> on {{ moment(project.timestamp).format('L') }}
             <br>
-            {{ project.title }}
+            {% if project.description %}
+            {{ project.description }}
+            {% endif %}
         </td>
     </tr>
 </table>
