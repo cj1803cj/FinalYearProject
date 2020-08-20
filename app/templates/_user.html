@@ -1,0 +1,21 @@
+<table class="table table-hover">
+    <tr>
+        <td width="70px">
+            <a href="{{ url_for('user', username=follow.username) }}">
+                <img src="{{ follow.avatar(70) }}" />
+            </a>
+        </td>
+        <td>
+            <!-- <span class="user_popup"> -->
+                <a href="{{ url_for('user', username=follow.username) }}">
+                    {{ follow.username }}
+                </a>
+            <!-- </span> --> 
+            {% if follow.about_me %}<p>{{ follow.about_me }}</p>{% endif %}
+            {% if follow.last_seen %}
+            <p>Last seen {{ moment(follow.last_seen).fromNow() }}</p>
+            {% endif %}
+            <br>
+        </td>
+    </tr>
+</table>
