@@ -281,9 +281,15 @@ def language(language):
         if projects.has_next else None
     prev_url = url_for('explore', page=projects.prev_num) \
         if projects.has_prev else None
-    return render_template('index.html', title='language', projects=projects.items, next_url=next_url, prev_url=prev_url)
+    return render_template('index.html', title=language, projects=projects.items, next_url=next_url, prev_url=prev_url)
 # end of language endpoint
 
+
+@app.route('/project/<id>')
+@login_required
+def project(id):
+    project = Project.query.get(id)
+    return render_template('project.html', title=project.title, project=project)
 
 # api endpoint
 @app.route('/api/', methods =['POST'])
