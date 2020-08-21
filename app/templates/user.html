@@ -23,7 +23,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                {% for follow in followers %}
+                                {% for user in followers %}
                                     {% include '_user.html' %}
                                 {% endfor %}
                             </div>
@@ -42,7 +42,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                {% for follow in following %}
+                                {% for user in following %}
                                     {% include '_user.html' %}
                                 {% endfor %}
                             </div>
@@ -89,4 +89,13 @@
             </li>
         </ul>
     </nav>
+
+    <!-- Show similar users -->
+    {% if users is not none %}
+    <p>Similar users</p>
+    {% for user in users %}
+        {% include '_user.html' %}
+    {% endfor %}
+    {% endif %}
+
 {% endblock %}
