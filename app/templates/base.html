@@ -104,6 +104,7 @@
         });
     </script>
 
+    <!-- script to add and remove styling to unfollow button (highlights red on hover) -->
     <script>
         $(document).ready(function () {
             $("#unfollow_btn").hover(function () {
@@ -117,7 +118,19 @@
             } )
         } );
     </script>
-    
+
+    <script>
+        $(document).ready(function () {
+            $("#unrate_btn").hover(function () {
+                $("#unrate_btn").removeClass("btn-primary");
+                $("#unrate_btn").addClass("btn-danger")
+            }, function() {
+                $("#unrate_btn").addClass("btn-primary");
+                $("#unrate_btn").removeClass("btn-danger")
+            } )
+        } );
+    </script>
+        
     <!-- unused script to set title of modal to followers when followers button is clicked using jquery
         can use this function once display function is changed to utilise ajax for getting list of followers/following,
         rather than passing it through the /user route
