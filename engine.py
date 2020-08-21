@@ -17,6 +17,19 @@ def recommend(title, df, tfidf_vectorizer):
     response = top5
 
     return response
+    
+
+def find(id, cv):
+
+    try:
+        user_cos_sim = cosine_similarity(cv[id - 1], cv).flatten()
+        top2 = sorted(list(enumerate(user_cos_sim)), key=lambda x: x[1], reverse=True)[1:3]
+        response = top2
+    except:
+        return f'User with id "{id}" could not be found' 
+
+    return response
+
 
 def api_recommend(title, df, tfidf_vectorizer):
 

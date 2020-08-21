@@ -6,7 +6,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Project
 from app.email import send_password_reset_email
-from engine import recommend, api_recommend
+from engine import recommend, api_recommend, find
 
 import pandas as pd
 import pickle
@@ -18,6 +18,7 @@ df = pd.read_csv('TopStaredRepositories.csv', usecols=[1])
 
 # load model which has already been saved using pickle library
 tfidf_vectorizer = pickle.load(open('tfidf_vectorizer.pickle', 'rb'))
+cv = pickle.load(open('count_vectorizer.pickle', 'rb'))
 
 # call method before processing any requests
 @app.before_request
@@ -145,6 +146,16 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+
+    list_of_recs = find(user.id, cv)
+    print(list_of_recs)
+    new_df = pd.DataFrame(list_of_recs, columns=['id', 'score'])
+    new_df['id'] = new_df['id'] + 1
+    print(new_df)
+
+    user_ids = new_df['id']
+    users = User.query.filter(User.id.in_(user_ids))
+
     following = user.followed.all()
     # get followers using backref in association
     followers = user.followers.all()
@@ -155,7 +166,7 @@ def user(username):
     prev_url = url_for('user', username=user.username, page=projects.prev_num) \
         if projects.has_prev else None
     form = EmptyForm()
-    return render_template('user.html', title=f'{user.username}\'s profile', user=user, following=following, followers=followers, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
+    return render_template('user.html', title=f'{user.username}\'s profile', user=user, users=users, following=following, followers=followers, projects=projects.items, next_url=next_url, prev_url=prev_url, form=form)
 # end of user profile endpoint
 
 
