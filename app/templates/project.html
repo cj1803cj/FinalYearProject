@@ -33,6 +33,11 @@
     <tr>
         <td> {% if project.description %} {{ project.description }} {% endif %} </td>
     </tr>
+    <tr>
+        {% if project.git_url %}
+        <td><a href="{{ project.git_url }}">View on GitHub</a></td>
+        {% endif %}
+    </tr>
 </table>
 
 <!-- Show recommended projects -->
