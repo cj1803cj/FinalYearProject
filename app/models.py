@@ -85,7 +85,8 @@ class User(UserMixin, db.Model):
             followers, (followers.c.followed_id == Project.user_id)).filter(
                 followers.c.follower_id == self.id)
         own = Project.query.filter_by(user_id=self.id)
-        return followed.union(own).order_by(Project.timestamp.desc())
+        #return followed.union(own).order_by(Project.timestamp.desc())
+        return followed.order_by(Project.timestamp.desc())
     
     def rate(self, project):
         if not self.is_rated(project):
