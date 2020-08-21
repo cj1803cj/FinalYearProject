@@ -19,15 +19,15 @@
         {% if not current_user.is_rated(project) %}
         <form action="{{ url_for('rate', id=project.id) }}" method="post">
             {{ form.hidden_tag() }}
-            {{ form.submit(value='rate', class="btn btn-outline-primary float-right") }}
+            <button class="btn btn-outline-primary float-right" type="submit"><i class="far fa-star"></i></button>
         </form>
-            <button class="btn btn-outline-primary float-right"><i class="far fa-star"></i></button>
+            
         {% elif current_user.is_rated(project) %}
         <form action="{{ url_for('unrate', id=project.id) }}" method="post">
             {{ form.hidden_tag() }}
-            {{ form.submit(value='unrate', class="btn btn-primary float-right") }}
+            <button class="btn btn-primary float-right", id="unrate_btn", type="submit"><i class="fas fa-star"></i></button>
         </form>
-            <button class="btn btn-primary float-right"><i class="fas fa-star"></i></button>
+            
         {% else %} {% endif %}
     </caption>
     <tr>
