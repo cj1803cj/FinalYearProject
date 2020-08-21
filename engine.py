@@ -17,7 +17,7 @@ def recommend(title, df, tfidf_vectorizer):
     response = top5
 
     return response
-    
+
 
 def find(id, cv):
 
@@ -26,7 +26,8 @@ def find(id, cv):
         top2 = sorted(list(enumerate(user_cos_sim)), key=lambda x: x[1], reverse=True)[1:3]
         response = top2
     except:
-        return f'User with id "{id}" could not be found' 
+        print(f'User with id "{id}" could not be found')
+        return None
 
     return response
 

@@ -146,15 +146,17 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
+    users = None
 
     list_of_recs = find(user.id, cv)
     print(list_of_recs)
-    new_df = pd.DataFrame(list_of_recs, columns=['id', 'score'])
-    new_df['id'] = new_df['id'] + 1
-    print(new_df)
+    if list_of_recs is not None:
+        new_df = pd.DataFrame(list_of_recs, columns=['id', 'score'])
+        new_df['id'] = new_df['id'] + 1
+        print(new_df)
 
-    user_ids = new_df['id']
-    users = User.query.filter(User.id.in_(user_ids))
+        user_ids = new_df['id']
+        users = User.query.filter(User.id.in_(user_ids))
 
     following = user.followed.all()
     # get followers using backref in association
