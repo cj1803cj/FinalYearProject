@@ -53,11 +53,11 @@ class EmptyForm(FlaskForm):
 
 # TODO add select field which populates choices from db to select language
 class ProjectForm(FlaskForm):
-    title = StringField('Got a project name?', validators=[DataRequired(), Length(min=1, max=60)])
+    title = StringField('Name your project', validators=[DataRequired(), Length(min=1, max=60)])
     description = TextAreaField('Description of project', validators=[Length(min=0, max=150)])
     language = StringField('Main Programming Language', validators=[DataRequired(), Length(min=1, max=15)])
     git_url = StringField('Optional GitHub URL')
-    tags = StringField('Optional tags (separated by a single space)', validators=[Length(min=0, max=60)])
+    tags = StringField('Tags (separated by a single space)', validators=[Length(min=0, max=60)])
     submit = SubmitField('Submit')
 
 
