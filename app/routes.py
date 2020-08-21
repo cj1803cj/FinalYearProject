@@ -310,7 +310,7 @@ def rate(id):
             return redirect(url_for('project', id=id))
         current_user.rate(project)
         db.session.commit()
-        flash('You just rated {}s project!'.format(project.owner))
+        flash('You just rated {}\'s project!'.format(project.owner.username))
         return redirect(url_for('project', id=id))
     else:
         return redirect(url_for('index'))
@@ -332,7 +332,7 @@ def unrate(id):
             return redirect(url_for('project', id=id))
         current_user.unrate(project)
         db.session.commit()
-        flash('You just unrated {}s project!'.format(project.owner))
+        flash('You just unrated {}\'s project!'.format(project.owner.username))
         return redirect(url_for('project', id=id))
     else:
         return redirect(url_for('index'))
