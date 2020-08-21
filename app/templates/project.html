@@ -36,5 +36,9 @@
 </table>
 
 <!-- Show recommended projects -->
+<p>You might like these!</p>
+{% for project in projects %}
+    {% include '_project.html' %}
+{% endfor %}
 
 {% endblock %}
