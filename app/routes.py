@@ -277,9 +277,9 @@ def language(language):
     page = request.args.get('page', 1, type=int)
     projects = Project.query.filter_by(language=language).order_by(Project.timestamp.desc()).paginate(page, app.config['POSTS_PER_PAGE'], False)
 
-    next_url = url_for('explore', page=projects.next_num) \
+    next_url = url_for('language', language=language, page=projects.next_num) \
         if projects.has_next else None
-    prev_url = url_for('explore', page=projects.prev_num) \
+    prev_url = url_for('language', language=language, page=projects.prev_num) \
         if projects.has_prev else None
     return render_template('index.html', title=language, projects=projects.items, next_url=next_url, prev_url=prev_url)
 # end of language endpoint
