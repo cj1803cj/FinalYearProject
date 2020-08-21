@@ -6,7 +6,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm, EditProfileForm, ProjectForm, EmptyForm, ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Project
 from app.email import send_password_reset_email
-from engine import recommend
+from engine import recommend, api_recommend
 
 import pandas as pd
 import pickle
@@ -285,16 +285,6 @@ def language(language):
 # end of language endpoint
 
 
-# project endpoint
-@app.route('/project/<id>')
-@login_required
-def project(id):
-    project = Project.query.get(id)
-    form = EmptyForm()
-    return render_template('project.html', title=project.title, project=project, form=form)
-# end of project endpoint
-
-
 # rate project endpoint
 @app.route('/rate/<id>', methods=['POST'])
 @login_required
@@ -339,6 +329,28 @@ def unrate(id):
 # end of unrate project endpoint
 
 
+# project endpoint
+@app.route('/project/<id>')
+@login_required
+def project(id):
+    project = Project.query.get(id)
+
+    list_of_recs = recommend(project.title, df, tfidf_vectorizer)
+    print(list_of_recs)
+
+    new_df = pd.DataFrame(list_of_recs, columns=['id', 'score'])
+    new_df['id'] = new_df['id'] + 1
+    print(new_df)
+
+    project_ids = new_df['id']
+    projects = Project.query.filter(Project.id.in_(project_ids))
+    
+
+    form = EmptyForm()
+    return render_template('project.html', title=project.title, project=project, projects=projects, form=form)
+# end of project endpoint
+
+
 # api endpoint
 @app.route('/api/', methods =['POST'])
 def process_request():
@@ -349,7 +361,7 @@ def process_request():
     title = user_input['Repository Name']
 
     # call recommend function with necessary arguments
-    recommended_projects = recommend(title, df, tfidf_vectorizer)
+    recommended_projects = api_recommend(title, df, tfidf_vectorizer)
 
     return jsonify(recommended_projects)
 
