@@ -41,9 +41,11 @@
 </table>
 
 <!-- Show recommended projects -->
+{% if projects is not none %}
 <p>You might like these!</p>
 {% for project in projects %}
     {% include '_project.html' %}
 {% endfor %}
+{% endif %}
 
 {% endblock %}

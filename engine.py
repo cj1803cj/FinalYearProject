@@ -6,7 +6,8 @@ def recommend(title, df, tfidf_vectorizer):
         title_iloc = df.index[df['Repository Name'] == title][0]
 
     except:
-        return f'Project with title "{title}" could not be found' 
+        print(f'Project with title "{title}" could not be found')
+        return None
 
     print(title_iloc)
 

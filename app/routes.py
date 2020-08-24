@@ -347,16 +347,17 @@ def unrate(id):
 @login_required
 def project(id):
     project = Project.query.get(id)
+    projects = None
 
     list_of_recs = recommend(project.title, df, tfidf_vectorizer)
     print(list_of_recs)
+    if list_of_recs is not None:
+        new_df = pd.DataFrame(list_of_recs, columns=['id', 'score'])
+        new_df['id'] = new_df['id'] + 1
+        print(new_df)
 
-    new_df = pd.DataFrame(list_of_recs, columns=['id', 'score'])
-    new_df['id'] = new_df['id'] + 1
-    print(new_df)
-
-    project_ids = new_df['id']
-    projects = Project.query.filter(Project.id.in_(project_ids))
+        project_ids = new_df['id']
+        projects = Project.query.filter(Project.id.in_(project_ids))
     
 
     form = EmptyForm()
