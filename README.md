@@ -13,6 +13,11 @@ $ flask run
 
 ### Email Server
 If you would like to test email functionality (testing, reset password requests) then you will need to run an email server:
+
+In window 1:  
+$ python -m smtpd -n -c DebuggingServer localhost:8025  
+
+In window 2:
 $ export FLASK_APP=recommendev.py  
 $ export FLASK_DEBUG=1  
 $ export MAIL_SERVER=localhost  
